@@ -1,5 +1,6 @@
 import pygame
-from constants import *
+from player import Player
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
 def main():
    pygame.init()
@@ -10,13 +11,20 @@ def main():
    print("Starting Asteroids!")
    print(f"Screen width: {SCREEN_WIDTH}")
    print(f"Screen height: {SCREEN_HEIGHT}")
+
+   # Create a player at the center of the screen
+   player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
    
    while True:
       for event in pygame.event.get():
          if event.type == pygame.QUIT:
             return
             
-      screen.fill((0, 0, 0)) # Fill the screen with black
+      # Fill the screen with black
+      screen.fill("black")
+
+      # Draw the player
+      player.draw(screen)
 
       # Refresh the screen
       pygame.display.flip()
