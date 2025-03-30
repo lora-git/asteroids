@@ -4,8 +4,9 @@ from constants import PLAYER_RADIUS  # Import PLAYER_RADIUS from constants.py
 from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED 
 
 class Player(CircleShape):
-    def __init__(self, x: int, y: int):
-        super().__init__(x, y, PLAYER_RADIUS)  # Call parent constructor with PLAYER_RADIUS
+    def __init__(self, x, y):
+        position = pygame.Vector2(x, y)  # Combine x and y into a Vector2
+        super().__init__(position, PLAYER_RADIUS)  # Pass position and radius
         self.rotation = 0  # Initialize rotation to 0
 
     # in the player class
