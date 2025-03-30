@@ -12,6 +12,13 @@ def main():
    print(f"Screen width: {SCREEN_WIDTH}")
    print(f"Screen height: {SCREEN_HEIGHT}")
 
+   # Create our groups
+   updatable = pygame.sprite.Group()
+   drawable = pygame.sprite.Group()
+
+   # Set both groups as containers for the Player class
+   Player.containers = (updatable, drawable)
+
    # Create a player at the center of the screen
    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
    
@@ -21,18 +28,18 @@ def main():
             return
 
       dt = clock.tick(60) / 1000  # Update dt
-      player.update(dt)
+      updatable.update(dt) # Call update on all objects in the updatable group
 
       # Fill the screen with black
       screen.fill("black")
 
-      # Draw the player
-      player.draw(screen)
+      # Draw all objects in the drawable group
+      for entity in drawable:
+         entity.draw(screen)
 
       # Refresh the screen
       pygame.display.flip()
    
-
    pygame.quit()
 
 if __name__ == "__main__":
