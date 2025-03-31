@@ -47,8 +47,14 @@ def main():
       dt = clock.tick(60) / 1000  # Update dt
       updatable.update(dt) # Call update on all objects in the updatable group
 
-      # Debug: Print all drawable entities
-      #print(f"Drawable entities: {drawable.sprites()}")
+      #print(f"Drawable entities: {drawable.sprites()}") #Debug: Print all drawable entities
+
+      # Collision Detection: Check if player collides with any asteroid
+      for asteroid in asteroids:
+         if player.collision_check(asteroid):  # Assuming Player has collision_check method
+               print("Game over!")
+               pygame.quit()
+               sys.exit()
 
       # Fill the screen with black
       screen.fill("black")
