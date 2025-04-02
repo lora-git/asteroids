@@ -18,4 +18,4 @@ class Asteroid(CircleShape):
 
     def update(self, dt):
         self.position += self.velocity * dt
-        print(f"Position: {self.position}, Velocity: {self.velocity}, dt: {dt}")
+        #print(f"Position: {self.position}, Velocity: {self.velocity}, dt: {dt}")

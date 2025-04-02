@@ -1,7 +1,6 @@
 import pygame
 from circleshape import CircleShape  # Import the base CircleShape class
-from constants import PLAYER_RADIUS  # Import PLAYER_RADIUS from constants.py
-from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED 
+from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED
 
 class Player(CircleShape):
     def __init__(self, x, y):
@@ -34,7 +33,9 @@ class Player(CircleShape):
         if keys[pygame.K_w]:
             self.move(-dt)
         if keys[pygame.K_s]:
-            self.move(dt)        
+            self.move(dt)
+        if keys[pygame.K_SPACE]:
+            self.shoot()        
 
     def move(self, dt):
             forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -44,3 +45,29 @@ class Player(CircleShape):
     def collision_check(self, other_circle: "CircleShape") -> bool:
          distance = self.position.distance_to(other_circle.position)
          return distance < (self.radius + other_circle.radius)
+    
+    def shoot(self):
+        # Import Shot here to avoid circular imports
+        from shoot import Shot
+        from constants import SHOT_RADIUS
+            
+        # Get the player's triangle points
+        triangle_points = self.triangle()
+        # The first point (a) is the forward point
+        forward_point = triangle_points[0]
+        
+        # Create shot at the forward point
+        shot = Shot(forward_point.x, forward_point.y)
+        
+        # Set the shot's velocity
+        shot_direction = pygame.Vector2(0, 1).rotate(self.rotation)
+        shot.velocity = shot_direction * PLAYER_SHOOT_SPEED
+        
+        # Add the shot to the group
+        self.shots_group.add(shot)
+
+        # Debug output
+        # print(f"Shot fired! Direction: {shot_direction}, Speed: {PLAYER_SHOOT_SPEED}")
+
+    def set_shots_group(self, shots_group):
+        self.shots_group = shots_group
