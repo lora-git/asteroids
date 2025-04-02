@@ -13,7 +13,6 @@ class Shot(CircleShape):
         self.position += self.velocity * dt
         
         # Optional: Remove the shot if it goes off-screen
-        # This is just a suggestion, you might want to implement this differently
         if (self.position.x < -100 or self.position.x > SCREEN_WIDTH + 100 or
             self.position.y < -100 or self.position.y > SCREEN_HEIGHT + 100):
             self.kill()
