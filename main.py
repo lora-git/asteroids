@@ -6,6 +6,7 @@ from asteroidfield import AsteroidField
 from shoot import Shot
 import sys  # for sys.exit()
 
+
 def main():
    pygame.init()
    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -27,10 +28,6 @@ def main():
 
    #Asteroid containers
    Asteroid.containers = (asteroids, updatable, drawable)
-   import random
-   random_position = pygame.Vector2(random.randint(0, SCREEN_WIDTH), random.randint(0, SCREEN_HEIGHT))
-   asteroid = Asteroid(random_position.x, random_position.y, 30)
-   asteroid.velocity = pygame.Vector2(50, 50)  # Move diagonally
 
    # Set static containers before creating instances
    AsteroidField.containers = (updatable,)
@@ -59,7 +56,7 @@ def main():
             # Compare positions and radii of asteroid and bullet
             distance = asteroid.position.distance_to(bullet.position)
             if distance <= asteroid.radius + bullet.radius:  # Simple circle collision check
-                  asteroid.kill()  # Destroy the asteroid
+                  asteroid.split()  # Split or destroy asteroid
                   bullet.kill()  # Destroy the bullet
 
          if player.collision_check(asteroid):  # Assuming Player has collision_check method
