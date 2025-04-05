@@ -25,3 +25,9 @@ class Shot(CircleShape):
     def set_shots_group(self, shots_group):
         self.shots_group = shots_group
     
+    def draw_with_offset(self, screen, offset):
+        # Calculate position with offset
+        offset_position = (int(self.position.x + offset[0]), int(self.position.y + offset[1]))
+        
+        # Draw the circle with the offset position
+        pygame.draw.circle(screen, "yellow", offset_position, self.radius, 5)

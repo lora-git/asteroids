@@ -1,5 +1,5 @@
 import pygame
-from circleshape import CircleShape  # Import the base CircleShape class
+from circleshape import CircleShape
 from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN
 
 class Player(CircleShape):
@@ -84,3 +84,14 @@ class Player(CircleShape):
 
     def set_shots_group(self, shots_group):
         self.shots_group = shots_group
+
+    def draw_with_offset(self, screen, offset):
+        # Apply offset to each point in the triangle
+        triangle_points = self.triangle()
+        offset_triangle = [
+            pygame.Vector2(point.x + offset[0], point.y + offset[1]) 
+            for point in triangle_points
+        ]
+        
+        # Draw the triangle with the offset points
+        pygame.draw.polygon(screen, "white", offset_triangle, 2)
